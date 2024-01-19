@@ -9,7 +9,7 @@
         <q-avatar class="q-mr-sm">
         <img :src="images.imagesFlag[0].webformatURL">
         </q-avatar>
-        <p class="text-h5 q-ma-none">{{country.name}}</p>
+        <div>{{country.name}}</div>
       </header>
         
       <section class="q-mt-md">

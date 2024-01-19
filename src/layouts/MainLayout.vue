@@ -18,7 +18,9 @@
         </q-toolbar-title>
 
         <!-- FILTER BY COUNTRIES -->
-        <q-input :dark="!isDarkMode" dense standout v-model="text" input-class="text-right" class="q-ml-md"  @click="toggleContinentContainer" >
+        <q-input :dark="!isDarkMode" dense standout v-model="text" input-class="text-right" class="q-ml-md"  @click="toggleContinentContainer" 
+        @keyup.enter="handleEnterKeyPress"
+        >
           <template v-slot:append>
             <q-icon v-if="text === ''" name="search" />
             <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
@@ -66,7 +68,7 @@
 
     <!-- PAGES ====================================== -->
     <q-page-container @click="handlePageContainerClick">
-      <router-view :text="text" 
+      <router-view :search-text="searchText" 
       :selected-continents="selectedContinents"/>
     </q-page-container>
   </q-layout>
@@ -110,11 +112,17 @@ export default class MainLayout extends Vue {
   isDarkMode = false
   //input filter countries
   text =''
+  searchText = ''
   //filter continents
   showContinentContainer = false
   selectedContinents: string[] =[]
-  continents = ['Asia', 'Europe', 'Africa', 'North America', 'South America', 'Oceania']
-   //cerrar sidebar
+  continents = ['AS', 'EU', 'AF', 'NA', 'SA', 'OC']
+  
+  //enviar como prop el texto deseado
+  handleEnterKeyPress() {
+    this.searchText = this.text;
+  }
+  //cerrar sidebar
   handleCloseSidebar(){
     this.leftDrawerOpen = false;
   }
